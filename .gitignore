@@ -4,4 +4,4 @@
 /tmp
 /.idea
 /spring/*.pid
-
+Gemfile.lock

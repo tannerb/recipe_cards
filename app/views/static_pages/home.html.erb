@@ -1,0 +1,19 @@
+<% provide(:title, "Home") %>
+<div id="login">
+  <div id="login-inner">
+    <p> Please enter your name </p>
+    <%= form_for :user, url: '/users' do |u| %>
+      Name: <%= f.text_field :name %>
+      Email: <%= f.text_field :email %>
+      Password : <%= f.password_field :password %>
+      Confirm: <%= f.password_field :password_confirmation %>
+    <% end %>
+    <form action="POST" id="login-form">
+      <label for="username-input"> Username </label>
+      <input id="username-input" type="text" />
+      <label for="password-input"> Password </label>
+      <input id="password-input" type="password" />
+      <button type="submit" id="login-button"> Go </button>
+    </form>
+  </div>
+</div>
