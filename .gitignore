@@ -1,1 +1,7 @@
-bin/
+/.bundle
+/db/*.sqlite3*
+/log/*.log
+/tmp
+/.idea
+/spring/*.pid
+
