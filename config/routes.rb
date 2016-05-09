@@ -1,7 +1,10 @@
-Rails.application.routes.draw do
-  root 'static_pages#home'
 
-  post 'login' => 'static_pages#login'
+
+Rails.application.routes.draw do
+  devise_for :users
+  root to:'application#index'
+
+  post 'login' => 'devise#login'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -55,3 +58,4 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
 end
+
