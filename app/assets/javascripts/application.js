@@ -18,24 +18,41 @@
 //= require_tree .
 
 $(function(){ 
+    function map_keys(it, fn) {
+        for (i in it) {
+            if (it.hasOwnProperty(i)) {
+                fn(i, it[i]);
+            }
+        }
+    }
+
     $(document).foundation(); 
     var dispatcher = new WebSocketRails('localhost:3000/websocket');
     
     dispatcher.on_open = function(data) {
-        console.log('Connection established: ', data);
+        console.log('Connection established: ', data.connection_id);
     };
 
-    dispatcher.bind('connection_closed', function(data) {
-        console.log('Connection closed', data);
-    });
+    var events = {
+        'crawler.url_data_update': function(data) {
+
+        },
+        'crawler.new_recipe': function(recipe_data) {
+
+        },
+        'crawler.crawling': function(data) {
+            console.log('crawling', data);
+        },
+        'connection_closed': function(data) {
+            console.log('Connection closed', data);
+        }
+    };
     
-    dispatcher.bind('recipes.crawling', function(data) {
-        console.log('crawling', data);
-    })
+    map_keys(events, dispatcher.bind);
     
     $('#search-url-btn').click(function () {
         var url = { url: $('#search-url').val() };
-        dispatcher.trigger('recipes.crawl', url);
+        dispatcher.trigger('crawler.crawl', url);
         console.log('click', url);
     });
 });

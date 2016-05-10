@@ -1,7 +1,7 @@
 
 
 WebsocketRails::EventMap.describe do
-  namespace :recipes do
+  namespace :crawler do
     subscribe :crawl, :to => WebSearchController, :with_method => :crawl
   end
 end
