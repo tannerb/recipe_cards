@@ -12,8 +12,21 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require websocket-rails/main
 //= require turbolinks
 //= require foundation
 //= require_tree .
 
-$(function(){ $(document).foundation(); });
+$(function(){ 
+    $(document).foundation(); 
+    var dispatcher = new WebSocketRails('localhost:3000/websocket');
+    
+    dispatcher.on_open = function(data) {
+        console.log('Connection established: ', data);
+    };
+
+    dispatcher.bind('connection_closed', function(data) {
+        console.log('Connection closed');
+    });
+});
+
