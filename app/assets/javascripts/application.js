@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require websocket-rails/main
+//= require websocket_rails/main
 //= require turbolinks
 //= require foundation
 //= require_tree .
@@ -26,7 +26,17 @@ $(function(){
     };
 
     dispatcher.bind('connection_closed', function(data) {
-        console.log('Connection closed');
+        console.log('Connection closed', data);
+    });
+    
+    dispatcher.bind('recipes.crawling', function(data) {
+        console.log('crawling', data);
+    })
+    
+    $('#search-url-btn').click(function () {
+        var url = { url: $('#search-url').val() };
+        dispatcher.trigger('recipes.crawl', url);
+        console.log('click', url);
     });
 });
 

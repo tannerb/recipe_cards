@@ -6,6 +6,7 @@ class WebSearchController < WebsocketRails::BaseController
   end
 
   def crawl
-    puts "Crawl"
+    puts 'crawling', message
+    send_message :crawling, message, :namespace => :recipes
   end
 end
