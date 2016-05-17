@@ -15,6 +15,9 @@
 //= require websocket_rails/main
 //= require turbolinks
 //= require foundation
+//= require react
+//= require react_ujs
+//= require components
 //= require_tree .
 
 $(function(){ 
@@ -26,7 +29,10 @@ $(function(){
         }
     }
 
-    $(document).foundation(); 
+    $(document).foundation();
+
+
+    // setup websocket connection
     var dispatcher = new WebSocketRails('localhost:3000/websocket');
     
     dispatcher.on_open = function(data) {
@@ -34,22 +40,25 @@ $(function(){
     };
 
     var events = {
-        'crawler.url_data_update': function(data) {
+        'crawler.url_stats_update': function(data) {
 
         },
         'crawler.new_recipe': function(recipe_data) {
 
         },
         'crawler.crawling': function(data) {
+            console.log('message received');
             console.log('crawling', data);
         },
         'connection_closed': function(data) {
             console.log('Connection closed', data);
         }
     };
-    
+    // bind all events
     map_keys(events, dispatcher.bind);
-    
+
+
+    // setup button callbacks
     $('#search-url-btn').click(function () {
         var url = { url: $('#search-url').val() };
         dispatcher.trigger('crawler.crawl', url);
