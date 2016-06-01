@@ -15,7 +15,7 @@ class CreateRecipes < ActiveRecord::Migration
 
       t.text :url
 
-      t.timestamps null: false
+      t.timestamps
     end
   end
 end
